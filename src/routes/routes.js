@@ -1,5 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
-import Login from "../modules/Login/routes";
-import Dashboard from "../modules/Dashboard/routes";
+import Landing from "../modules/Landing/routes";
 
-export default [...Login, ...Dashboard];
+export default [...Landing];

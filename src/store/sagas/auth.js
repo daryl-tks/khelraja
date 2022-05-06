@@ -1,24 +1,35 @@
-/* eslint-disable import/no-anonymous-default-export */
 import { takeLatest } from "redux-saga/effects";
 import processAction from "@utils/processAction";
 import { actionTypes } from "../reducers/auth";
 
+// import { login as loginService } from "./service";
+
+/* ------------- SERVICE ------------- */
+
+const loginService = (verification) => {
+  // ex: verification[number]=639954870808&verification[code]=9351
+  // return api.post("/verifications/verify_login", verification, {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // });
+};
+
 /* ------------- WORKERS ------------- */
 
-function* postLogin({ body }) {
+function* login({ payload }) {
   yield processAction({
-    body,
-    method: "post",
-    service: `/login`,
-    success: actionTypes.POST_LOGIN_SUCCESS,
-    failed: actionTypes.POST_LOGIN_FAILED,
+    service: loginService,
+    params: payload,
+    success: actionTypes.LOGIN_SUCCESS,
+    failed: actionTypes.LOGIN_FAILED
   });
 }
 
 /* ------------- WATCHERS ------------- */
 
 function* watchAuth() {
-  yield takeLatest(actionTypes.POST_LOGIN, postLogin);
+  yield takeLatest(actionTypes.LOGIN, login);
 }
 
 export default [watchAuth()];

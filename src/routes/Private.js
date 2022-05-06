@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import App from "./container";
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
-  console.log("PRIVATE", isAuthenticated);
   return (
     <Route
       {...rest}
@@ -18,7 +17,7 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
           <Redirect
             to={{
               pathname: "/",
-              state: { from: props.location },
+              state: { from: props.location }
             }}
           />
         )
@@ -30,12 +29,12 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
 PrivateRoute.propTypes = {
   component: PropTypes.func.isRequired,
   location: PropTypes.object,
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 // Retrieve data from store as props
 const mapStateToProps = ({ auth }) => ({
-  isAuthenticated: auth.isAuthenticated,
+  isAuthenticated: auth.isAuthenticated
 });
 
 export default connect(mapStateToProps)(PrivateRoute);

@@ -8,8 +8,7 @@ import store from "./store";
 import serviceWorker from "./serviceWorker";
 import { PersistGate } from "redux-persist/integration/react";
 
-import "./index.scss";
-import "antd/dist/antd.css";
+import "./index.css";
 
 ReactDOM.render(
   <Provider store={store.store}>

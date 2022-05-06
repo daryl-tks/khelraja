@@ -1,23 +1,29 @@
-import { call, put } from "redux-saga/effects";
 import request from "@utils/api";
 
-export default function* newProcessAction(action) {
-  const { params, body, service, success, failed, method } = action;
+const processAction = async (dispatch, opt) => {
+  dispatch({
+    type: opt.request,
+    payload: { params: opt.params, body: opt.body }
+  });
 
-  const requestService = (items) =>
-    request(service, { method, params, body: items });
+  const result = await request[`${opt.action}`](
+    `${opt.service}${opt.params ? "?" + opt.params : ""}`,
+    opt.body || "",
+    opt.token
+  );
 
-  let payload = "";
-  try {
-    if (Array.isArray(body)) {
-      let parameters = Object.values(body).map((item) => item);
-      payload = yield call(requestService, ...parameters);
-    } else {
-      payload = yield call(requestService, body);
-    }
-
-    yield put({ type: success, payload });
-  } catch (error) {
-    yield put({ type: failed, error });
+  if (result.error) {
+    dispatch({
+      type: opt.failed,
+      payload: result,
+      params: opt.params,
+      body: opt.body
+    });
+  } else {
+    dispatch({ type: opt.success, payload: result });
   }
-}
+
+  return result;
+};
+
+export default processAction;

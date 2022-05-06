@@ -8,21 +8,19 @@ import rootReducer from "./reducers";
 
 const sagaMiddleware = createSagaMiddleware();
 
-/* eslint import/no-anonymous-default-export: [2, {"allowAnonymousFunction": true}] */
-
 export default function (initialState = {}) {
   // Middleware and Enhancers
   const enhancers = [applyMiddleware(sagaMiddleware)];
 
   // Persisting state
   const persistConfig = {
-    key: "suki-dev",
+    key: "mysuki-dev",
     version: 1,
     storage,
     migrate: (state) => {
       console.log("Migration Running!");
       return Promise.resolve(state);
-    },
+    }
   };
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);

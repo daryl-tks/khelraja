@@ -1,40 +1,32 @@
 import React from "react";
 import { Layout } from "antd";
-import MainHeader from "@commons/MainHeader";
-import MainSider from "@commons/MainSider";
-import Footer from "@commons/Footer";
-import "./index.scss";
+import "./index.less";
 
 const { Content } = Layout;
 
-const renderPrivatePage = ({ children }) => {
+const renderPrivatePage = (props) => {
+  // @TODO You can add Main Header Here for Authenticated Page
   return (
-    <div className="admin-page">
-      <Layout>
-        <MainHeader />
-
-        <Layout className="layout-body">
-          <MainSider />
-
-          <Layout className="layout-child">
-            <Content className="content-layout-background">{children}</Content>
-
-            <Footer />
-          </Layout>
+    <div className="app">
+      {/* <main>
+        <Layout>
+          <Content>{props.children}</Content>
         </Layout>
-      </Layout>
+      </main> */}
     </div>
   );
 };
 
 const renderPublicPage = ({ children }) => (
-  <Layout className="public-layout">
-    <Content>{children}</Content>
-  </Layout>
+  <>
+    <Layout>
+      <Content>{children}</Content>
+    </Layout>
+  </>
 );
 
-const App = ({ isAuthenticated, ...props }) => {
-  if (isAuthenticated) {
+const App = (props) => {
+  if (props.isAuthenticated) {
     return renderPrivatePage(props);
   }
   return renderPublicPage(props);

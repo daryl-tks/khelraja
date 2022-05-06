@@ -1,135 +1,95 @@
-import urlFormat from "./urlFormat";
-import { getToken } from "./localStorage";
-const API_URL = `${process.env.REACT_APP_API_URL}`;
+import axios from "axios";
+import { get } from "lodash";
+import { getKey, getToken } from "@utils/localStorage";
+// import { initializeStore } from "../store";
+const API_URL = process.env.REACT_APP_API_URL;
 
-const fetchOpts = (method, body = null) => {
+const accessKey = getKey();
+
+const handleErrors = async (error) => ({
+  data: get(error, "response.data", null),
+  status: get(error, "response.status", null),
+  error: true
+});
+
+const handleSuccess = (response) => ({
+  data: response.data,
+  status: response.status,
+  success: true
+});
+
+const privateHeader = (token) => {
   const accessToken = getToken();
-
-  let option = null;
-
-  if (body instanceof FormData) {
-    option = getFormDataOption(method, body, accessToken);
-  } else {
-    option = getJsonOption(method, body, accessToken);
-  }
-
-  return option;
+  return {
+    Accept: "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+    "Cache-Control": "no-store, no-cache",
+    "Access-Control-Allow-Headers": "X-Requested-With"
+    // "X-Access-Token": `${token || accessToken}`
+    // "X-Access-Type": `Account`
+    // "X-Access-Type": `${accessKey || getKey()}`,
+  };
 };
 
-const getJsonOption = (method, body, accessToken) => {
-  let option = Object.assign(
-    {},
-    {
-      method,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    },
-    body
-      ? {
-          body: JSON.stringify(body),
-        }
-      : {}
-  );
+const publicHeader = () => ({
+  Accept: "application/json",
+  "Access-Control-Allow-Origin": "*",
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Headers": "X-Requested-With"
+});
 
-  if (accessToken) {
-    option = Object.assign(
-      {},
-      {
-        method,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-      body
-        ? {
-            body: JSON.stringify(body),
-          }
-        : {}
-    );
-  }
+const api = (token) => {
+  const accessToken_1 = getToken();
 
-  return option;
-};
+  const request = axios.create({
+    baseURL: API_URL,
+    responseType: "json",
+    headers: accessToken_1 ? privateHeader(token) : publicHeader()
+  });
 
-const getFormDataOption = (method, body, accessToken) => {
-  let option = Object.assign(
-    {},
-    {
-      method,
-      headers: {
-        Accept: "application/json",
-      },
-    },
-    body
-      ? {
-          body: body,
-        }
-      : {}
-  );
-
-  if (accessToken) {
-    option = Object.assign(
-      {},
-      {
-        method,
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-      body
-        ? {
-            body: body,
-          }
-        : {}
-    );
-  }
-
-  return option;
-};
-
-export const API = {
-  get: (url) => fetch(`${API_URL}${url}`, fetchOpts("GET")),
-  post: (url, data) => fetch(`${API_URL}${url}`, fetchOpts("POST", data)),
-  put: (url, data) => fetch(`${API_URL}${url}`, fetchOpts("PUT", data)),
-  patch: (url, data) => fetch(`${API_URL}${url}`, fetchOpts("PATCH", data)),
-  delete: (url) => fetch(`${API_URL}${url}`, fetchOpts("DELETE")),
-};
-
-const request = async (url, options = {}) => {
-  // Get the request method
-  let method = "get";
-  if (options.method) {
-    method = options.method.toLowerCase();
-  }
-
-  // Get params
-  if (options.params) {
-    url = urlFormat(url, options.params);
-  }
-
-  let body = null;
-  if (options.body) {
-    body = options.body;
-  }
-
-  // Do the request
-  try {
-    const response = await API[method](url, body);
-    const json = await response.json();
-
-    if (!response.ok) {
-      throw Error(json.message);
+  // Response interceptor for API calls
+  request.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const { status, data } = error.response;
+      // if (status === 401) {
+      //   const { dispatch } = initializeStore();
+      //   dispatch({ type: "POST_LOGOUT", payload: data.message });
+      // }
+      return Promise.reject(error);
     }
+  );
 
-    return json;
-  } catch (err) {
-    throw err;
-  }
+  return request;
+};
+
+const request = {
+  get: (url, data, token) =>
+    api(token)
+      .get(API_URL + url)
+      .then(handleSuccess)
+      .catch(handleErrors),
+  post: (url, data) =>
+    api()
+      .post(API_URL + url, data)
+      .then(handleSuccess)
+      .catch(handleErrors),
+  put: (url, data) =>
+    api()
+      .put(API_URL + url, data)
+      .then(handleSuccess)
+      .catch(handleErrors),
+  patch: (url, data) =>
+    api()
+      .patch(API_URL + url, data)
+      .then(handleSuccess)
+      .catch(handleErrors),
+  delete: (url) =>
+    api()
+      .delete(API_URL + url)
+      .then(handleSuccess)
+      .catch(handleErrors)
 };
 
 export default request;

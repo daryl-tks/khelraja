@@ -7,8 +7,6 @@ import storage from "redux-persist/lib/storage";
 
 const sagaMiddleware = createSagaMiddleware();
 
-/* eslint import/no-anonymous-default-export: [2, {"allowAnonymousFunction": true}] */
-
 export default function (initialState = {}) {
   // Middleware and Enhancers
   const enhancers = [applyMiddleware(sagaMiddleware)];
@@ -16,7 +14,7 @@ export default function (initialState = {}) {
   // Persisting state
   const persistConfig = {
     key: "mysuki",
-    storage,
+    storage
   };
   const persistedReducer = persistReducer(persistConfig, rootReducer);
 
