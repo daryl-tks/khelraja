@@ -1,0 +1,23 @@
+.ant-layout-header.main-header {
+  background: #fff;
+  padding: 0 12px;
+}
+
+.main-header {
+  .logo-container {
+    position: relative;
+
+    .logo {
+      position: absolute;
+      top: 0px;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+  }
+
+  .menu-logo.ant-menu-item-disabled {
+    cursor: pointer;
+  }
+}

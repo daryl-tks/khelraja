@@ -1,0 +1,51 @@
+.dashboard {
+  .d-count-card {
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    margin-bottom: 10px;
+
+    .card-title {
+      font-size: 32px;
+      @media (min-width: 992px) {
+        font-size: 48px;
+      }
+      font-weight: 700;
+      font-family: "Manrope";
+      margin-bottom: 0px;
+    }
+  }
+
+  .graph-container {
+    margin-bottom: 20px;
+
+    @media (min-width: 576px) {
+      margin-top: 20px;
+    }
+
+    .analytics-card {
+      border: 1px solid rgba(0, 0, 0, 0.09);
+
+      .header .title {
+        font-size: 20px;
+
+        @media (min-width: 576px) {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+// @media (min-width: 576px) { ... }
+
+// Medium devices (tablets, 768px and up)
+// @media (min-width: 768px) { ... }
+
+// Large devices (desktops, 992px and up)
+// @media (min-width: 992px) { ... }
+
+// X-Large devices (large desktops, 1200px and up)
+// @media (min-width: 1200px) { ... }
+
+// XX-Large devices (larger desktops, 1400px and up)
+// @media (min-width: 1400px) { ... }
