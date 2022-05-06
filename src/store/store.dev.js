@@ -8,6 +8,7 @@ import rootReducer from "./reducers";
 
 const sagaMiddleware = createSagaMiddleware();
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (initialState = {}) {
   // Middleware and Enhancers
   const enhancers = [applyMiddleware(sagaMiddleware)];

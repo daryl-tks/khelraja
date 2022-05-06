@@ -1,10 +1,10 @@
 import axios from "axios";
 import { get } from "lodash";
-import { getKey, getToken } from "@utils/localStorage";
+import {  getToken } from "@utils/localStorage";
 // import { initializeStore } from "../store";
 const API_URL = process.env.REACT_APP_API_URL;
 
-const accessKey = getKey();
+// const accessKey = getKey();
 
 const handleErrors = async (error) => ({
   data: get(error, "response.data", null),
@@ -19,7 +19,7 @@ const handleSuccess = (response) => ({
 });
 
 const privateHeader = (token) => {
-  const accessToken = getToken();
+  // const accessToken = getToken();
   return {
     Accept: "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -52,7 +52,7 @@ const api = (token) => {
   request.interceptors.response.use(
     (response) => response,
     async (error) => {
-      const { status, data } = error.response;
+      // const { status, data } = error.response;
       // if (status === 401) {
       //   const { dispatch } = initializeStore();
       //   dispatch({ type: "POST_LOGOUT", payload: data.message });

@@ -1,3 +1,6 @@
+/* eslint-disable import/no-anonymous-default-export */
+/* eslint-disable no-unused-vars */
+
 import { setToken, deleteToken } from "@utils/localStorage";
 
 /* ------------- ACTION TYPES ------------- */

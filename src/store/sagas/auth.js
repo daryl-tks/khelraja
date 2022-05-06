@@ -32,4 +32,5 @@ function* watchAuth() {
   yield takeLatest(actionTypes.LOGIN, login);
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default [watchAuth()];

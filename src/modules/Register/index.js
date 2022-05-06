@@ -21,6 +21,7 @@ const Register = ({history, ...props}) => {
       message: 'Registration Success',
     });
 
+    // eslint-disable-next-line no-useless-concat
     document.cookie = "uin6" + "=" + username + ";";
 
     returnHome()
