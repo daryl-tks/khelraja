@@ -10,7 +10,6 @@ const Home = ({history, ...props}) => {
     history.push("/home/register")
   }
 
-  console.log("window.location", window.location)
   return (
     <Row style={{height: 100}}>
       <Col span={24}>

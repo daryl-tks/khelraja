@@ -4,7 +4,8 @@ import LoadingComponent from "@commons/Loader";
 
 export default [
   {
-    path: "/home/index",
+    path: "/",
+    exact: true,  
     auth: false,
     layout: "admin",
     component: Loadable({

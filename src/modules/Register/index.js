@@ -7,13 +7,9 @@ import debounce from "@utils/debounce";
 
 const Register = ({history, ...props}) => {
   
-  const onClickBack = () => {
-    history.push("/home/index")
-  }
-  
   const returnHome = debounce(() => {
-    history.push("/home/index")
-  }, 400)
+    history.push("/")
+  }, 200)
 
   
   const onFinish = ({username}) => {
@@ -24,7 +20,7 @@ const Register = ({history, ...props}) => {
     // eslint-disable-next-line no-useless-concat
     document.cookie = "uin6" + "=" + username + ";";
 
-    returnHome()
+    returnHome();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -36,7 +32,7 @@ const Register = ({history, ...props}) => {
       <Col span={24}>
         <Row type="flex" justify="end">
           <Col>
-            <Button onClick={onClickBack} style={{ margin: 32 }}>Back</Button>
+            <Button onClick={()=> returnHome()} style={{ margin: 32 }}>Back</Button>
           </Col>
         </Row>
 
@@ -48,6 +44,7 @@ const Register = ({history, ...props}) => {
             <Divider />
 
             <Form
+            id="memberReg"
       name="basic"
       labelCol={{
         span: 8,
@@ -89,10 +86,10 @@ const Register = ({history, ...props}) => {
       </Form.Item>
 
       
-        <Row type="flex" justify="end">
+        <Row type="flex" justify="end" className="reg-sub">
 
-        <Button type="primary" htmlType="submit">
-          Submit
+        <Button className="disabled" type="primary" htmlType="submit" id="submit">
+          Register now
         </Button>
         </Row>
     </Form>

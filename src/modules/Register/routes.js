@@ -5,10 +5,11 @@ import LoadingComponent from "@commons/Loader";
 export default [
   {
     path: "/home/register",
+    exact: true,
     auth: false,
     layout: "admin",
     component: Loadable({
-      loader: () => import("./index"),
+      loader: () => import("./index.js"),
       loading: LoadingComponent
     })
   }
