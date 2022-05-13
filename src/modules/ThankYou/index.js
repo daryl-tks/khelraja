@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 const ThankYouPage = ({ history }) => {
   useEffect(() => {
-    returnHome();
+    // returnHome();
   });
 
   const returnHome = debounce(() => {
@@ -13,7 +13,7 @@ const ThankYouPage = ({ history }) => {
   }, 2000);
 
   return (
-    <Row style={{ height: 100 }}>
+    <Row style={{ height: 100 }} className="login-img">
       <Col span={24}>
         <Row type="flex" justify="center">
           <h1 style={{ marginTop: 50 }}>THANK YOU FOR REGISTERING!</h1>
