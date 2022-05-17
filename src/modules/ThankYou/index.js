@@ -7,7 +7,7 @@ const { Header } = Layout;
 
 const ThankYouPage = ({ history }) => {
   useEffect(() => {
-    // returnHome();
+    returnHome();
   });
 
   const returnHome = debounce(() => {

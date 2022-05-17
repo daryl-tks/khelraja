@@ -18,6 +18,10 @@ const { Header } = Layout;
 
 const Register = ({ history, ...props }) => {
   const returnHome = debounce(() => {
+    history.push('/home/index');
+  }, 200);
+
+  const ThankYouPage = debounce(() => {
     history.push('/home/thankyou');
   }, 200);
 
@@ -29,7 +33,7 @@ const Register = ({ history, ...props }) => {
     // eslint-disable-next-line no-useless-concat
     document.cookie = 'uin6' + '=' + username + ';';
 
-    returnHome();
+    ThankYouPage();
   };
 
   const onFinishFailed = (errorInfo) => {

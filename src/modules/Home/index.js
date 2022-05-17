@@ -21,6 +21,7 @@ const Home = ({ history, ...props }) => {
                 borderRadius: 5,
                 backgroundColor: '#fac50f',
                 borderColor: '#fac50f',
+                fontWeight: 700,
               }}
             >
               Sign Up
@@ -29,10 +30,15 @@ const Home = ({ history, ...props }) => {
         </Row>
       </Header>
 
-      <Row style={{ height: '900vh' }} className="home-bg">
+      <Row
+        style={{ height: '900vh', backgroundColor: '#8f2728' }}
+        className="home-bg"
+      >
         <Col span={24}>
           <Row type="flex" justify="center">
-            <h1 style={{ marginTop: 50, fontSize: 100 }}>HOME</h1>
+            <h1 style={{ marginTop: 50, fontSize: 100, color: '#fac50f' }}>
+              HOME
+            </h1>
           </Row>
         </Col>
       </Row>
