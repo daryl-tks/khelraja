@@ -1,17 +1,20 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import debounce from '@utils/debounce';
+
 import {
   Row,
   Col,
-  Button,
   Card,
-  Divider,
-  Input,
   Form,
+  Input,
+  Button,
+  Layout,
+  Divider,
   notification,
 } from 'antd';
 
-import { withRouter } from 'react-router-dom';
-import debounce from '@utils/debounce';
+const { Header } = Layout;
 
 const Register = ({ history, ...props }) => {
   const returnHome = debounce(() => {
@@ -34,80 +37,109 @@ const Register = ({ history, ...props }) => {
   };
 
   return (
-    <Row style={{ height: 100 }}>
-      <Col span={24}>
+    <Layout>
+      <Header style={{ padding: 0, backgroundColor: '#000', height: 100 }}>
         <Row type="flex" justify="end">
           <Col>
-            <Button onClick={() => returnHome()} style={{ margin: 32 }}>
-              Back
+            <Button
+              onClick={() => returnHome()}
+              style={{
+                margin: 32,
+                borderRadius: 5,
+                backgroundColor: '#fac50f',
+                borderColor: '#fac50f',
+              }}
+            >
+              Home
             </Button>
           </Col>
         </Row>
+      </Header>
 
-        <Row type="flex" justify="center">
-          <Card bordered={true} style={{ marginTop: 50 }}>
-            <Row type="flex" justify="center">
-              <h1>SIGN UP</h1>
-            </Row>
-            <Divider />
-
-            <Form
-              id="memberReg"
-              name="basic"
-              labelCol={{
-                span: 8,
+      <Row style={{ height: '90vh', backgroundColor: '#8f2728' }}>
+        <Col span={24}>
+          <Row type="flex" justify="center">
+            <Card
+              bordered={true}
+              style={{
+                marginTop: 50,
+                borderRadius: 12,
+                width: 500,
               }}
-              wrapperCol={{
-                span: 16,
-              }}
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              autoComplete="off"
             >
-              <Form.Item
-                label="Username"
-                name="username"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input your username!',
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please input your password!',
-                  },
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
-
-              <Row type="flex" justify="end" className="reg-sub">
-                <Button
-                  className="disabled"
-                  type="primary"
-                  htmlType="submit"
-                  id="submit"
+              <Row type="flex" justify="center">
+                <h1
+                  style={{ color: '#8f2728', fontSize: 40, marginBottom: 10 }}
                 >
-                  Register now
-                </Button>
+                  SIGN UP
+                </h1>
               </Row>
-            </Form>
-          </Card>
-        </Row>
-      </Col>
-    </Row>
+              <Divider style={{ marginBottom: 50 }} />
+
+              <Form
+                id="memberReg"
+                name="basic"
+                labelCol={{
+                  span: 5,
+                }}
+                wrapperCol={{
+                  span: 168,
+                }}
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+              >
+                <Form.Item
+                  label="Username"
+                  name="username"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your username!',
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+
+                <Form.Item
+                  label="Password"
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input your password!',
+                    },
+                  ]}
+                >
+                  <Input.Password />
+                </Form.Item>
+
+                <Row type="flex" justify="center" className="reg-sub">
+                  <Button
+                    style={{
+                      marginTop: 30,
+                      backgroundColor: 'lightgoldenrodyellow',
+                      color: '#8f2728',
+                      borderColor: '#8f2728',
+                    }}
+                    className="disabled"
+                    type="primary"
+                    htmlType="submit"
+                    id="submit"
+                  >
+                    Register now
+                  </Button>
+                </Row>
+              </Form>
+            </Card>
+          </Row>
+        </Col>
+      </Row>
+    </Layout>
   );
 };
 
